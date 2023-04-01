@@ -42,6 +42,23 @@ jobs:
       - name: another script
         run: echo Hahahahaha
         
+        
+  test_docker_image_job:
+    needs: [build]
+    runs-on: ubuntu-latest
+    container:
+      image: python
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check system
+        run: |
+          cat /etc/os-release
+          python --version
+          python3 --version
+      - name: Run a one-line script
+        run: echo DOCKER_IMAGE_JOB!
+        
+        
   deploy:
     runs-on: ubuntu-latest
     needs: [test_job]
